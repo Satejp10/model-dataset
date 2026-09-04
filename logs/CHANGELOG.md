@@ -11,14 +11,14 @@ edit entries by hand — just keep the two marker comments in place.
 ## Current dataset specs
 
 <!-- SPECS:START -->
-_Snapshot as of 2026-09-01_
+_Snapshot as of 2026-09-04_
 
 | Property | Value |
 |---|---|
 | File | `Pruned AI Models_Table.xlsx` |
 | Sheet | `Models` |
 | Header row | Row 2 |
-| Number of models | **401** |
+| Number of models | **403** |
 | Number of distinct labs (as-written) | **15** |
 | Columns (named) | **20** |
 
@@ -54,13 +54,13 @@ _Snapshot as of 2026-09-01_
 | Google DeepMind | 57 |
 | Microsoft | 45 |
 | NVIDIA | 42 |
+| OpenAI | 40 |
 | Alibaba | 39 |
-| OpenAI | 39 |
 | Meta AI | 37 |
 | Google | 31 |
 | Mistral | 26 |
 | DeepSeek-AI | 21 |
-| Anthropic | 19 |
+| Anthropic | 20 |
 | Moonshot AI | 12 |
 | xAI | 12 |
 | DeepMind | 7 |
@@ -76,6 +76,21 @@ _Snapshot as of 2026-09-01_
 ## Change history
 
 <!-- CHANGES:START -->
+
+### 2026-09-04 — Update (+2 / -0 / ~0)
+
+Source export: `Pruned AI Models_Table.xlsx` · models 401 → 403 · labs 15 → 15 · columns 20 → 20
+
+**Models added (2):**
+- GPT-6 Astra — OpenAI
+- Claude Fable 5.1 — Anthropic
+
+**Models removed (0):**
+- none
+
+**Models changed (0):**
+- none
+
 
 ### 2026-09-01 — Baseline snapshot
 - Established this logs folder.
