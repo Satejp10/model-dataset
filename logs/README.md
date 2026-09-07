@@ -7,6 +7,8 @@ the [LifeArchitect.ai Models Table](https://lifearchitect.ai/models-table/)).
 
 - `CHANGELOG.md` — reverse-chronological log of changes, plus a live specs snapshot.
   Both the specs block and the dated entries are maintained by the script below.
+- `add_model.py` — inserts new model rows into the workbook from a small JSON spec,
+  for when you know what shipped but have no fresh export to hand.
 - `diff_dataset.py` — parses a fresh export, diffs it against the last snapshot, and
   logs the delta.
 - `snapshots/latest.json` — the last recorded state of the dataset (the diff baseline).
@@ -17,16 +19,38 @@ the [LifeArchitect.ai Models Table](https://lifearchitect.ai/models-table/)).
 ## Why it's semi-manual
 
 The Models Table CSV/JSON/XLSX exports are gated to Institutional subscribers, so there
-is **no reliable public URL to auto-fetch**. You download a fresh export yourself; the
-script handles the diff and the logging. Alan Thompson updates the source by hand on each
+is **no reliable public URL to auto-fetch**. You supply the new data — a fresh export, or
+a short JSON spec for models you already know shipped — and the scripts handle the
+placement, the diff and the logging. Alan Thompson updates the source by hand on each
 model's launch day, so our copy drifts the moment a new model lands — re-run this whenever
 you want to catch up.
 
 ## The routine
 
-1. **Get a fresh export.** From the Models Table, download the XLSX and save it over
+1. **Get the new models into the workbook.** Two ways in, depending on what you have:
+
+   **(a) A fresh export.** From the Models Table, download the XLSX and save it over
    `Pruned AI Models_Table.xlsx` in the repo root (or keep it elsewhere and pass
-   `--new PATH`).
+   `--new PATH`). This is the authoritative path — it picks up edits to existing rows
+   as well as new ones.
+
+   **(b) A handful of models you already know about.** Write them into a JSON spec and
+   let `add_model.py` place them:
+   ```bash
+   python logs/add_model.py --example > new.json   # see the shape
+   python logs/add_model.py --spec new.json        # preview
+   python logs/add_model.py --spec new.json --write
+   ```
+   It finds the right sorted position, copies the surrounding cell styles and number
+   formats, normalises `Announced` to the first of the month, and extends the
+   autofilter. Keys are the column names as listed in the **Columns** table in
+   `CHANGELOG.md`; anything you leave out stays blank.
+
+   Validation runs over the whole spec before a single row is written: unknown
+   columns, a missing `Model`/`Lab`/`Announced`, a benchmark above 100, a `Public?`
+   outside 🟢/🔴/🟡, a `Paper / Repo` that isn't a URL, or a model already in the
+   sheet each abort the run with nothing changed. Models sharing a month keep the
+   order you listed them in.
 
 2. **Preview the delta** (writes nothing):
    ```bash
@@ -65,6 +89,16 @@ you want to catch up.
 
 ### Options
 
+`add_model.py`:
+
+| Flag | Meaning |
+|---|---|
+| `--spec PATH` | JSON file describing the model(s) to add, or `-` to read stdin |
+| `--xlsx PATH` | Workbook to edit (default: `Pruned AI Models_Table.xlsx` in the repo root) |
+| `--write` | Save the workbook (default: preview only) |
+| `--allow-duplicate` | Permit a model whose name and lab already appear in the sheet |
+| `--example` | Print a spec template and exit |
+
 `diff_dataset.py`:
 
 | Flag | Meaning |
@@ -102,6 +136,11 @@ Two conventions worth knowing:
 - Header cells are cleaned of sort glyphs and line-wraps (`MMLU\n-Pro` → `MMLU-Pro`).
 - The blank spacer column is skipped automatically (only named columns are tracked).
 - Models are keyed by name; duplicate names are disambiguated by lab (`Name ‹Lab›`).
+- `Count (rough)` is a rough ordinal carried down from the upstream source (919 → 1, with
+  gaps), so `add_model.py` leaves it blank rather than inventing a number. Pass it
+  explicitly if a fresh export ever tells you what it should be.
+- `Announced` stores day 1 for every model; the sheet's two day-30/31 rows predate us and
+  are left alone.
 - Requires `openpyxl` (`pip install openpyxl`). No network access is used.
 
 ## Editing by hand
