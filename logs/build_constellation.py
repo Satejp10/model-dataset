@@ -12,6 +12,11 @@ baseline written by diff_dataset.py: records keyed by model name, every value a 
 
 Reads nothing else and changes nothing else. Standard library only; no network.
 
+The source column "Public?" follows LifeArchitect's legend — 🟢 publicly accessible,
+🟡 video or scripted demo only, 🔴 held in the lab and never released — which every
+record carries as both `released` (🟢 only) and `access` ("public" / "demo" /
+"unreleased"). Use `access` to tell a demo apart from a model still in the lab.
+
   python logs/build_constellation.py                    # build into dist/
   python logs/build_constellation.py --check            # validate + report, write nothing
   python logs/build_constellation.py --labs "OpenAI,Anthropic" --since 2024-01
@@ -35,6 +40,25 @@ DEFAULT_SNAPSHOT = REPO_ROOT / "logs" / "snapshots" / "latest.json"
 DEFAULT_OUT = REPO_ROOT / "dist"
 
 DESC_LIMIT = 240
+
+# Credit for the upstream data, carried into DATASET.source so anything rendering this
+# build has the attribution to hand. Update it when the export vintage changes.
+SOURCE_CREDIT = "Data: Dr Alan D. Thompson, LifeArchitect.ai Models Table (Sep/2026)."
+
+# LifeArchitect's "Public?" legend, mapped to (released, access).
+#   🟢 publicly accessible
+#   🟡 shown in a video or a scripted demo only — announced, but you cannot use it
+#   🔴 held in the lab, never released
+# 🟡 and 🔴 are both released=false; `access` is what tells them apart.
+PUBLIC_LEGEND = {
+    "\U0001F7E2": (True, "public"),
+    "\U0001F7E1": (False, "demo"),
+    "\U0001F534": (False, "unreleased"),
+}
+# Fallback for a glyph the legend does not cover: the pre-existing released=true default,
+# paired with the matching access so released == (access == "public") on every record.
+PUBLIC_FALLBACK = (True, "public")
+ACCESS_VALUES = ("public", "demo", "unreleased")
 
 # Labels that refer to the same organisation. The changelog already calls out this merge.
 # Edit here to add more; nothing else clusters labs, and nothing matches by similarity.
@@ -201,14 +225,13 @@ def build_records(snapshot: dict, errors: list[str], warnings: list[tuple[str, s
 
         lab_raw = (row.get(C_LAB) or "").strip()
         public = (row.get(C_PUBLIC) or "").strip()
-        if public == "\U0001F7E2":
-            released = True
-        elif public == "\U0001F534":
-            released = False
+        if public in PUBLIC_LEGEND:
+            released, access = PUBLIC_LEGEND[public]
         else:
-            released = True
+            released, access = PUBLIC_FALLBACK
             warnings.append(
-                (key, f"unrecognised Public? value {public!r} - defaulted released=true")
+                (key, f"unrecognised Public? value {public!r} - defaulted "
+                      f"released={str(released).lower()}, access={access!r}")
             )
 
         link = clean_url(row.get(C_PAPER))
@@ -240,6 +263,7 @@ def build_records(snapshot: dict, errors: list[str], warnings: list[tuple[str, s
             "arch": text_or_none(row.get(C_ARCH)),
             "family": None,
             "released": released,
+            "access": access,
             "estimated": link is None,
             "disclosure": text_or_none(row.get(C_DISCLOSURE)),
             "trainingSet": text_or_none(row.get(C_TRAINING)),
@@ -314,6 +338,11 @@ def validate(records: list[dict], errors: list[str]) -> None:
                 seen[rid] = label
         if not DATE_MONTH_RE.match(rec.get("date") or ""):
             errors.append(f"{label}: date is not YYYY-MM: {rec.get('date')!r}")
+        access = rec.get("access")
+        if access not in ACCESS_VALUES:
+            errors.append(f"{label}: access is not one of {ACCESS_VALUES}: {access!r}")
+        elif rec.get("released") is not (access == "public"):
+            errors.append(f"{label}: released={rec.get('released')!r} contradicts access={access!r}")
         for field in NUMERIC_FIELDS:
             value = rec.get(field)
             if value is None:
@@ -343,6 +372,7 @@ def build_dataset_header(snapshot: dict, horizon) -> dict:
         "updated": captured,
         "scoreMetric": "LifeArchitect ALScore",
         "scoreNote": "ALScore as published in the Models Table. Not an Artificial Analysis index.",
+        "source": SOURCE_CREDIT,
         "horizon": horizon,
         "palette": "signal",
     }
@@ -377,6 +407,7 @@ def render_report(snapshot, records, total_parsed, skipped, filtered_out, collis
     lines = ["# Constellation build report", ""]
     lines += [
         f"- Snapshot: `{snapshot.get('source_file', '?')}` captured `{snapshot.get('captured', '?')}`",
+        f"- {SOURCE_CREDIT} Carried into `DATASET.source`.",
         f"- Records in snapshot: **{len(snapshot.get('models', {}))}**",
         f"- Parsed: **{total_parsed}** · skipped: **{len(skipped)}** · "
         f"filtered out: **{filtered_out}** · emitted: **{len(records)}**",
@@ -407,6 +438,18 @@ def render_report(snapshot, records, total_parsed, skipped, filtered_out, collis
     per_lab = collections.Counter(r["lab"] for r in records)
     for lab, count in sorted(per_lab.items(), key=lambda kv: (-kv[1], kv[0])):
         lines.append(f"| {lab} | {count} |")
+    lines.append("")
+
+    lines += ["## Access", "",
+              "From the source `Public?` column, on LifeArchitect's legend: 🟢 publicly "
+              "accessible, 🟡 video or scripted demo only, 🔴 held in the lab and never "
+              "released. `released` is true for 🟢 alone — a 🟡 demo is something you "
+              "cannot use — and `access` is what tells a demo apart from a lab model.", "",
+              "| `access` | Legend | `released` | Records |", "|---|---|---|---:|"]
+    per_access = collections.Counter(r["access"] for r in records)
+    for access, glyph, released_as in (("public", "🟢", "true"), ("demo", "🟡", "false"),
+                                       ("unreleased", "🔴", "false")):
+        lines.append(f"| `{access}` | {glyph} | `{released_as}` | {per_access[access]} |")
     lines.append("")
 
     lines += ["## Horizon", "",
@@ -472,6 +515,11 @@ def render_report(snapshot, records, total_parsed, skipped, filtered_out, collis
         "Longer notes are cut at the last `.`/`?`/`!` within the first 240 characters, or "
         "at the last word boundary plus `…` when there is none. Text is always a verbatim "
         "prefix.",
+        "- **🟡 is not released.** A model shown only in a video or a scripted demo is "
+        "`released: false`, alongside 🔴. The two are still distinguishable: `access` is "
+        "`\"demo\"` for 🟡 and `\"unreleased\"` for 🔴. A `Public?` glyph outside the legend "
+        "falls back to `released: true` / `access: \"public\"` and is listed under Warnings; "
+        "`released == (access == \"public\")` holds on every record either way.",
         "- **Id stability.** Ids are assigned over every parsed record *before* `--labs` / "
         "`--since` filtering, so a filtered run produces the same ids as a full run.",
         "- **Families and horizon** are computed on the records actually emitted (after "

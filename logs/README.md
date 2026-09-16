@@ -34,6 +34,43 @@ you want to catch up.
    `--new PATH`). This is the authoritative path — it picks up edits to existing rows
    as well as new ones.
 
+   A fresh export carries **every** lab in the Models Table, and this repo tracks a
+   pruned subset, so `diff_dataset.py` applies a **lab allowlist to the new export
+   before it diffs**. The default allowlist is the distinct `Lab` values already in
+   `snapshots/latest.json`, which keeps the pruned set pruned without anyone restating
+   it; rows from any other lab never reach the diff, the specs block or the new
+   snapshot. The run prints how many rows the filter dropped, and which labs they came
+   from:
+
+   ```
+   Lab filter: 15 lab(s) from logs/snapshots/latest.json · kept 403 row(s), dropped 128 row(s)
+     31 lab(s) not on the allowlist:
+       Cohere (12)
+       AI21 (9)
+       …
+   ```
+
+   Pass `--labs "A,B,C"` to use a different list (matched case-insensitively against the
+   `Lab` column) — that is how a lab joins or leaves the tracked set. Widening it once,
+   with `--labs` naming the current labs plus the new one, is enough: the next run's
+   default allowlist is read back from the snapshot you just wrote.
+
+   Whatever the allowlist, models in the baseline that the filtered export no longer
+   carries are printed under a **WARNING** header before anything is written:
+
+   ```
+   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+   WARNING — 1 model(s) in the baseline are NOT in the filtered export.
+   ...
+     - GPT-6 Astra — OpenAI
+   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+   ```
+
+   Read that list before you `--write`. Rows added by hand with `add_model.py` are
+   exactly the rows a fresh export can drop — a model Alan hasn't listed yet vanishes
+   the moment you overwrite the workbook. Re-add any that should stay (step 1b) and run
+   the diff again.
+
    **(b) A handful of models you already know about.** Write them into a JSON spec and
    let `add_model.py` place them:
    ```bash
@@ -68,8 +105,8 @@ you want to catch up.
    - refresh the **Current dataset specs** block, and
    - overwrite `snapshots/latest.json` with the new baseline.
 
-4. **Commit** `CHANGELOG.md` and `snapshots/latest.json` together so the baseline stays in
-   sync with the log.
+4. **Commit** the workbook, `CHANGELOG.md` and `snapshots/latest.json` together so the
+   baseline stays in sync with both the log and the file it was parsed from.
 
 5. **Rebuild the constellation data** from the new snapshot:
    ```bash
@@ -106,6 +143,7 @@ you want to catch up.
 | `--new PATH` | Export to diff (default: `Pruned AI Models_Table.xlsx` in the repo root) |
 | `--write` | Apply the delta to `CHANGELOG.md` and save the new baseline (default: preview only) |
 | `--date YYYY-MM-DD` | Date stamp for the entry/snapshot (default: today) |
+| `--labs "OpenAI,Anthropic"` | Lab allowlist applied to the new export before the diff, matched case-insensitively (default: the distinct `Lab` values in `snapshots/latest.json`) |
 
 `build_constellation.py`:
 
@@ -122,13 +160,31 @@ output, and the only date it emits is the snapshot's own `captured` field. It **
 rather than degrades**: on any validation error it writes nothing, prints every problem,
 and exits 1. Standard library only; no network access.
 
-Two conventions worth knowing:
+A few conventions worth knowing:
 
 - **`score` is null on every record.** The snapshot carries no Artificial Analysis index,
   so none is invented — the published ALScore rides in `alscore`, unrescaled.
 - **`family` is deliberately conservative.** It groups sibling variants only via a fixed
   token allowlist (`Pro`, `Flash`, `Mini`, …) plus a shared stem and lab. Named sibling
   lines (Opus / Sonnet / Haiku) stay `null` by design; a wrong grouping is worse than none.
+- **Release status follows LifeArchitect's legend.** The source `Public?` column is
+  🟢 publicly accessible, 🟡 video or scripted demo only, 🔴 held in the lab and never
+  released. Every record carries both:
+
+  | `Public?` | `released` | `access` |
+  |---|---|---|
+  | 🟢 | `true` | `"public"` |
+  | 🟡 | `false` | `"demo"` |
+  | 🔴 | `false` | `"unreleased"` |
+
+  Only 🟢 is `released: true` — a 🟡 demo is something you cannot use — and `access` is
+  what tells a demo apart from a model still in the lab. A glyph outside the legend
+  falls back to `released: true` / `access: "public"` and is listed under **Warnings**
+  in `REPORT.md`; `released == (access == "public")` holds on every record either way.
+- **`DATASET.source` carries the credit.** Every build stamps
+  `Data: Dr Alan D. Thompson, LifeArchitect.ai Models Table (Sep/2026).` into the dataset
+  block, so anything rendering this data has the attribution to hand. It is a constant in
+  `build_constellation.py` — update it when the export vintage changes.
 
 ## Notes on parsing
 

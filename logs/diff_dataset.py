@@ -24,6 +24,21 @@ Typical use
 On the very first run there is no baseline yet, so --write just seeds
 logs/snapshots/latest.json from the current file and records no diff.
 
+The lab allowlist
+-----------------
+A fresh export carries every lab in the Models Table, while this repo tracks a
+pruned subset. So the new export is filtered by lab *before* it is diffed: only
+rows whose "Lab" is on the allowlist reach the diff, the specs block or the
+snapshot. The default allowlist is the distinct "Lab" values already in
+logs/snapshots/latest.json, which keeps the pruned set pruned without anyone
+re-stating it. Pass --labs "A,B,C" to use a different list (matched
+case-insensitively) — that is how a lab joins or leaves the tracked set.
+
+Models in the baseline that the filtered export no longer carries are printed
+under a WARNING header before anything is written. Rows added by hand with
+add_model.py are exactly the rows a fresh export can drop, so check that list
+before recording the delta.
+
 Only dependency: openpyxl  (pip install openpyxl)
 """
 
@@ -145,6 +160,67 @@ def compute_specs(parsed: dict) -> dict:
 
 
 # --------------------------------------------------------------------------- #
+# Lab allowlist
+# --------------------------------------------------------------------------- #
+def snapshot_labs(snapshot: dict) -> list[str]:
+    """Distinct, non-blank Lab values recorded in a baseline snapshot."""
+    labs = {}
+    for rec in snapshot.get("models", {}).values():
+        lab = (rec.get("Lab") or "").strip()
+        if lab:
+            labs.setdefault(lab.casefold(), lab)
+    return sorted(labs.values())
+
+
+def filter_by_labs(parsed: dict, allowed: list[str]) -> tuple[dict, list[str], dict[str, int]]:
+    """
+    Keep only rows whose Lab is on the allowlist.
+
+    A fresh export carries every lab in the Models Table; this repo tracks a pruned
+    subset, so the filter runs before the diff and the dropped rows never reach the
+    snapshot. Matching is case-insensitive on the trimmed label; a blank Lab is never
+    on the allowlist, so those rows drop too.
+
+    Returns (filtered parse, labs on the allowlist that matched nothing, {dropped lab: rows}).
+    """
+    wanted = {lab.strip().casefold(): lab.strip() for lab in allowed if lab.strip()}
+    models: dict[str, dict] = {}
+    order: list[str] = []
+    dropped: dict[str, int] = {}
+    matched: set[str] = set()
+
+    for key in parsed["order"]:
+        rec = parsed["models"][key]
+        lab = (rec.get("Lab") or "").strip()
+        fold = lab.casefold()
+        if fold in wanted:
+            matched.add(fold)
+            models[key] = rec
+            order.append(key)
+        else:
+            label = lab or "(blank)"
+            dropped[label] = dropped.get(label, 0) + 1
+
+    unmatched = sorted(wanted[f] for f in wanted.keys() - matched)
+    filtered = {"columns": parsed["columns"], "models": models, "order": order}
+    return filtered, unmatched, dict(sorted(dropped.items(), key=lambda kv: (-kv[1], kv[0])))
+
+
+def render_lab_filter(source: str, allowed: list[str], unmatched: list[str],
+                      dropped: dict[str, int], kept: int) -> str:
+    """Console summary of what the allowlist let through and what it dropped."""
+    total_dropped = sum(dropped.values())
+    out = [f"Lab filter: {len(allowed)} lab(s) from {source} · "
+           f"kept {kept} row(s), dropped {total_dropped} row(s)"]
+    if dropped:
+        out.append(f"  {len(dropped)} lab(s) not on the allowlist:")
+        out += [f"    {lab} ({n})" for lab, n in dropped.items()]
+    if unmatched:
+        out.append(f"  on the allowlist but absent from the export: {', '.join(unmatched)}")
+    return "\n".join(out)
+
+
+# --------------------------------------------------------------------------- #
 # Diff
 # --------------------------------------------------------------------------- #
 def diff_models(old: dict, new: dict, new_order: list[str]):
@@ -179,6 +255,24 @@ def _label(key: str, models: dict) -> str:
 # --------------------------------------------------------------------------- #
 # Rendering
 # --------------------------------------------------------------------------- #
+def render_removed_warning(removed: list[str], old_models: dict) -> str:
+    """
+    Loud, unmissable block listing baseline models the filtered export no longer has.
+
+    Printed before anything is written because this is the one delta that loses data:
+    rows added by hand with add_model.py are absent from a fresh export, so recording
+    the diff drops them from the snapshot for good.
+    """
+    rule = "!" * 78
+    out = [rule, f"WARNING — {len(removed)} model(s) in the baseline are NOT in the filtered export.",
+           "Recording this delta removes them from the snapshot. Rows added by hand with",
+           "add_model.py are exactly the rows a fresh export can drop — re-add any that",
+           "should stay, then run the diff again.", ""]
+    out += [f"  - {_label(k, old_models)}" for k in removed]
+    out.append(rule)
+    return "\n".join(out)
+
+
 def render_console(added, removed, changed, old_specs, new_specs, new_models, old_models) -> str:
     out = []
     out.append(f"models  {old_specs['num_models']:>4} -> {new_specs['num_models']:<4}"
@@ -189,9 +283,8 @@ def render_console(added, removed, changed, old_specs, new_specs, new_models, ol
     if added:
         out.append("ADDED")
         out += [f"  + {_label(k, new_models)}" for k in added]
-    if removed:
-        out.append("REMOVED")
-        out += [f"  - {_label(k, old_models)}" for k in removed]
+    # Removed models are not listed here — render_removed_warning() gives them their
+    # own WARNING block so they cannot be lost in a long changed-field listing.
     if changed:
         out.append("CHANGED")
         for k in changed:
@@ -299,17 +392,42 @@ def main() -> None:
                     help="apply the delta to CHANGELOG.md and save the new baseline snapshot")
     ap.add_argument("--date", default=_dt.date.today().isoformat(),
                     help="date stamp for the entry/snapshot (default: today)")
+    ap.add_argument("--labs", default="",
+                    help='comma-separated lab allowlist for the new export, e.g. "OpenAI,Anthropic" '
+                         "(default: the distinct Lab values in the baseline snapshot)")
     args = ap.parse_args()
 
     if not args.new.exists():
         sys.exit(f"Export not found: {args.new}")
 
     parsed = load_models(args.new)
-    specs = compute_specs(parsed)
     source_name = args.new.name
+    baseline = json.loads(SNAPSHOT.read_text(encoding="utf-8")) if SNAPSHOT.exists() else None
+
+    # -------- lab allowlist: prune the export before anything else sees it -------- #
+    # A fresh export carries every lab; this repo tracks a pruned subset. Filtering here
+    # means the diff, the specs block and the new snapshot all describe the same rows.
+    explicit = [lab for lab in args.labs.split(",") if lab.strip()]
+    if explicit:
+        allowed, allow_source = explicit, "--labs"
+    elif baseline is not None:
+        allowed, allow_source = snapshot_labs(baseline), str(SNAPSHOT.relative_to(REPO_ROOT))
+    else:
+        allowed, allow_source = [], ""
+
+    if allowed:
+        parsed, unmatched, dropped = filter_by_labs(parsed, allowed)
+        print(render_lab_filter(allow_source, allowed, unmatched, dropped, len(parsed["models"])))
+        print()
+        if not parsed["models"]:
+            sys.exit("The lab filter kept nothing — check --labs against the export's Lab column.")
+    else:
+        print("Lab filter: none (no baseline snapshot and no --labs) — keeping every row.\n")
+
+    specs = compute_specs(parsed)
 
     # -------- first run: seed the baseline -------- #
-    if not SNAPSHOT.exists():
+    if baseline is None:
         print(f"No baseline snapshot at {SNAPSHOT.relative_to(REPO_ROOT)}.")
         print(f"Parsed {specs['num_models']} models, {specs['num_labs']} labs, "
               f"{specs['num_columns']} columns from {source_name}.")
@@ -325,12 +443,18 @@ def main() -> None:
         return
 
     # -------- normal run: diff against baseline -------- #
-    old = json.loads(SNAPSHOT.read_text(encoding="utf-8"))
-    old_models = old.get("models", {})
-    old_specs = old.get("specs") or compute_specs({"columns": old.get("columns", []), "models": old_models})
+    old_models = baseline.get("models", {})
+    old_specs = baseline.get("specs") or compute_specs(
+        {"columns": baseline.get("columns", []), "models": old_models})
 
     added, removed, changed = diff_models(old_models, parsed["models"], parsed["order"])
     print(render_console(added, removed, changed, old_specs, specs, parsed["models"], old_models))
+
+    # Loud and early: the removed list is the only part of a delta that loses data, and
+    # this has to be readable before --write commits it.
+    if removed:
+        print()
+        print(render_removed_warning(removed, old_models))
 
     if not (added or removed or changed):
         print("\nNothing to log.")
