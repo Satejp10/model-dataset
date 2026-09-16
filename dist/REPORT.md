@@ -1,6 +1,7 @@
 # Constellation build report
 
-- Snapshot: `Pruned AI Models_Table.xlsx` captured `2026-09-04`
+- Snapshot: `Pruned AI Models_Table.xlsx` captured `2026-09-16`
+- Data: Dr Alan D. Thompson, LifeArchitect.ai Models Table (Sep/2026). Carried into `DATASET.source`.
 - Records in snapshot: **403**
 - Parsed: **403** · skipped: **0** · filtered out: **0** · emitted: **403**
 
@@ -16,7 +17,7 @@
 | alscore | 402 / 403 |
 | paramsB | 402 / 403 |
 | paramsActiveB | 164 / 403 |
-| tokensB | 401 / 403 |
+| tokensB | 402 / 403 |
 | mmlu | 133 / 403 |
 | mmluPro | 102 / 403 |
 | gpqa | 153 / 403 |
@@ -44,6 +45,16 @@
 | xAI | 12 |
 | MiniMax | 7 |
 | Z.AI | 7 |
+
+## Access
+
+From the source `Public?` column, on LifeArchitect's legend: 🟢 publicly accessible, 🟡 video or scripted demo only, 🔴 held in the lab and never released. `released` is true for 🟢 alone — a 🟡 demo is something you cannot use — and `access` is what tells a demo apart from a lab model.
+
+| `access` | Legend | `released` | Records |
+|---|---|---|---:|
+| `public` | 🟢 | `true` | 326 |
+| `demo` | 🟡 | `false` | 8 |
+| `unreleased` | 🔴 | `false` | 69 |
 
 ## Horizon
 
@@ -79,20 +90,12 @@ None. Every snapshot record had a usable `Announced` date.
 
 ## Warnings
 
-8 warning(s). These do not fail the build.
-
-- `Engram` — unrecognised Public? value '🟡' - defaulted released=true
-- `HOPE` — unrecognised Public? value '🟡' - defaulted released=true
-- `LearnLM` — unrecognised Public? value '🟡' - defaulted released=true
-- `Audio Flamingo` — unrecognised Public? value '🟡' - defaulted released=true
-- `MedLM` — unrecognised Public? value '🟡' - defaulted released=true
-- `Orca 2` — unrecognised Public? value '🟡' - defaulted released=true
-- `Orca` — unrecognised Public? value '🟡' - defaulted released=true
-- `LaMDA 2` — unrecognised Public? value '🟡' - defaulted released=true
+None.
 
 ## Judgments made
 
 - **`desc` truncation.** The 240-char rule engages only when `Notes` actually exceeds 240 characters; a note that already fits is emitted whole with no ellipsis, since appending one would signal an elision that did not happen. Longer notes are cut at the last `.`/`?`/`!` within the first 240 characters, or at the last word boundary plus `…` when there is none. Text is always a verbatim prefix.
+- **🟡 is not released.** A model shown only in a video or a scripted demo is `released: false`, alongside 🔴. The two are still distinguishable: `access` is `"demo"` for 🟡 and `"unreleased"` for 🔴. A `Public?` glyph outside the legend falls back to `released: true` / `access: "public"` and is listed under Warnings; `released == (access == "public")` holds on every record either way.
 - **Id stability.** Ids are assigned over every parsed record *before* `--labs` / `--since` filtering, so a filtered run produces the same ids as a full run.
 - **Families and horizon** are computed on the records actually emitted (after filtering), so neither can point at a record that was filtered away.
 - **`--labs`** matches a record's aliased `lab` or its original `labRaw`, case-insensitively.

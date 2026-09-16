@@ -11,7 +11,7 @@ edit entries by hand — just keep the two marker comments in place.
 ## Current dataset specs
 
 <!-- SPECS:START -->
-_Snapshot as of 2026-09-04_
+_Snapshot as of 2026-09-16_
 
 | Property | Value |
 |---|---|
@@ -76,6 +76,23 @@ _Snapshot as of 2026-09-04_
 ## Change history
 
 <!-- CHANGES:START -->
+
+### 2026-09-16 — Update (+0 / -0 / ~2)
+
+Source export: `Pruned AI Models_Table.xlsx` · models 403 → 403 · labs 15 → 15 · columns 20 → 20
+
+**Models added (0):**
+- none
+
+**Models removed (0):**
+- none
+
+**Models changed (2):**
+- GPT-6 Astra — OpenAI
+  - Paper / Repo: `https://developers.openai.com/api/docs/models/gpt-6-astra` → `https://deploymentsafety.openai.com/gpt-6-astra/gpt-6-astra.pdf`
+- Claude Fable 5.1 — Anthropic
+  - Tokens trained (B): `∅` → `250000`
+
 
 ### 2026-09-04 — Update (+2 / -0 / ~0)
 

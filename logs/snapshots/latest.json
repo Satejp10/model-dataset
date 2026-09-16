@@ -1,5 +1,5 @@
 {
-  "captured": "2026-09-04",
+  "captured": "2026-09-16",
   "source_file": "Pruned AI Models_Table.xlsx",
   "specs": {
     "num_models": 403,
@@ -489,7 +489,7 @@
       "Training dataset": "synthetic, web-scale",
       "Public?": "🟢",
       "Disclosure score": "",
-      "Paper / Repo": "https://developers.openai.com/api/docs/models/gpt-6-astra",
+      "Paper / Repo": "https://deploymentsafety.openai.com/gpt-6-astra/gpt-6-astra.pdf",
       "Tags": "Reasoning, SOTA",
       "Notes": "Released 2026-09-03; OpenAI calls it its most intelligent and aligned model to date, state-of-the-art on computer use, software engineering, and science. Notably strong offensive-security/exploit capability prompted a staged 'Trusted Access Program' rollout with broader API access described as imminent rather than immediate. GPQA Diamond 96.0% (Artificial Analysis). Params, MMLU-Pro, HLE, and ALScore not yet public/measured as of 2026-09-04 - not yet listed on LifeArchitect's Models Table at time of entry; added manually from press coverage (CNBC, TechCrunch, 9to5, Artificial Analysis).",
       "Count (rough)": "",
@@ -502,7 +502,7 @@
       "Params (active, B)": "150",
       "Announced": "2026-09-01",
       "Arch": "MoE",
-      "Tokens trained (B)": "",
+      "Tokens trained (B)": "250000",
       "ALScore": "166.7",
       "MMLU": "",
       "MMLU-Pro": "93.4",
