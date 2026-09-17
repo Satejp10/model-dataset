@@ -1,9 +1,9 @@
 # Constellation build report
 
-- Snapshot: `Pruned AI Models_Table.xlsx` captured `2026-09-16`
+- Snapshot: `Pruned AI Models_Table.xlsx` captured `2026-09-17`
 - Data: Dr Alan D. Thompson, LifeArchitect.ai Models Table (Sep/2026). Carried into `DATASET.source`.
-- Records in snapshot: **403**
-- Parsed: **403** · skipped: **0** · filtered out: **0** · emitted: **403**
+- Records in snapshot: **422**
+- Parsed: **422** · skipped: **0** · filtered out: **0** · emitted: **422**
 
 - Year range: **2017–2026**
 - Month range: **2017-06 → 2026-09**
@@ -12,39 +12,39 @@
 
 | Field | Records with a value |
 |---|---:|
-| link (Paper / Repo) | 403 / 403 |
-| playground | 314 / 403 |
-| alscore | 402 / 403 |
-| paramsB | 402 / 403 |
-| paramsActiveB | 164 / 403 |
-| tokensB | 402 / 403 |
-| mmlu | 133 / 403 |
-| mmluPro | 102 / 403 |
-| gpqa | 153 / 403 |
-| hle | 78 / 403 |
-| desc (Notes) | 403 / 403 |
-| arch | 402 / 403 |
-| disclosure | 401 / 403 |
-| family | 13 / 403 |
-| tags (non-empty) | 177 / 403 |
+| link (Paper / Repo) | 422 / 422 |
+| playground | 328 / 422 |
+| alscore | 402 / 422 |
+| paramsB | 408 / 422 |
+| paramsActiveB | 167 / 422 |
+| tokensB | 403 / 422 |
+| mmlu | 133 / 422 |
+| mmluPro | 102 / 422 |
+| gpqa | 153 / 422 |
+| hle | 79 / 422 |
+| desc (Notes) | 422 / 422 |
+| arch | 408 / 422 |
+| disclosure | 401 / 422 |
+| family | 17 / 422 |
+| tags (non-empty) | 191 / 422 |
 
 ## Records per lab
 
 | Lab | Records |
 |---|---:|
-| Google DeepMind | 95 |
+| Google DeepMind | 101 |
 | Microsoft | 45 |
+| OpenAI | 43 |
+| Alibaba | 42 |
 | NVIDIA | 42 |
-| OpenAI | 40 |
-| Alibaba | 39 |
 | Meta AI | 37 |
-| Mistral | 26 |
-| DeepSeek-AI | 21 |
-| Anthropic | 20 |
+| Mistral | 27 |
+| DeepSeek-AI | 23 |
+| Anthropic | 21 |
+| xAI | 13 |
 | Moonshot AI | 12 |
-| xAI | 12 |
+| Z.AI | 9 |
 | MiniMax | 7 |
-| Z.AI | 7 |
 
 ## Access
 
@@ -52,9 +52,9 @@ From the source `Public?` column, on LifeArchitect's legend: 🟢 publicly acces
 
 | `access` | Legend | `released` | Records |
 |---|---|---|---:|
-| `public` | 🟢 | `true` | 326 |
+| `public` | 🟢 | `true` | 343 |
 | `demo` | 🟡 | `false` | 8 |
-| `unreleased` | 🔴 | `false` | 69 |
+| `unreleased` | 🔴 | `false` | 71 |
 
 ## Horizon
 
@@ -67,12 +67,14 @@ Records dated after the horizon: **0**.
 
 ## Families formed
 
-6 family/families, from the fixed variant-token allowlist only (no fuzzy matching, no edit distance, no inference from Notes). The consumer draws a family only when its members also share a month.
+8 family/families, from the fixed variant-token allowlist only (no fuzzy matching, no edit distance, no inference from Notes). The consumer draws a family only when its members also share a month.
 
 | Lab | Family | Members |
 |---|---|---|
+| DeepSeek-AI | DeepSeek-V4 | DeepSeek-V4-Flash, DeepSeek-V4-Pro |
 | Google DeepMind | Gemini 1.5 | Gemini 1.5 Flash, Gemini 1.5 Pro |
 | Google DeepMind | Gemini 3 | Gemini 3 Flash, Gemini 3 Pro |
+| Google DeepMind | Gemini 3.5 | Gemini 3.5 Flash, Gemini 3.5 Flash-Lite |
 | Microsoft | phi-3 | phi-3-medium, phi-3-mini |
 | Mistral | Mistral | Mistral Large, Mistral Small, Mistral-medium |
 | NVIDIA | Cosmos 3 | Cosmos 3 Edge, Cosmos 3 Super |
@@ -90,7 +92,9 @@ None. Every snapshot record had a usable `Announced` date.
 
 ## Warnings
 
-None.
+1 warning(s). These do not fail the build.
+
+- `Robostral Navigate` — unrecognised Public? value '' - defaulted released=true, access='public'
 
 ## Judgments made
 

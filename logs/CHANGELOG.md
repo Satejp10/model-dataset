@@ -11,14 +11,14 @@ edit entries by hand — just keep the two marker comments in place.
 ## Current dataset specs
 
 <!-- SPECS:START -->
-_Snapshot as of 2026-09-16_
+_Snapshot as of 2026-09-17_
 
 | Property | Value |
 |---|---|
 | File | `Pruned AI Models_Table.xlsx` |
 | Sheet | `Models` |
 | Header row | Row 2 |
-| Number of models | **403** |
+| Number of models | **422** |
 | Number of distinct labs (as-written) | **15** |
 | Columns (named) | **20** |
 
@@ -51,21 +51,21 @@ _Snapshot as of 2026-09-16_
 
 | Lab | Models |
 |---|---:|
-| Google DeepMind | 57 |
+| Google DeepMind | 63 |
 | Microsoft | 45 |
+| OpenAI | 43 |
+| Alibaba | 42 |
 | NVIDIA | 42 |
-| OpenAI | 40 |
-| Alibaba | 39 |
 | Meta AI | 37 |
 | Google | 31 |
-| Mistral | 26 |
-| DeepSeek-AI | 21 |
-| Anthropic | 20 |
+| Mistral | 27 |
+| DeepSeek-AI | 23 |
+| Anthropic | 21 |
+| xAI | 13 |
 | Moonshot AI | 12 |
-| xAI | 12 |
+| Z.AI | 9 |
 | DeepMind | 7 |
 | MiniMax | 7 |
-| Z.AI | 7 |
 
 > Note: `Google DeepMind`, `Google`, and `DeepMind` are recorded as separate
 > labels. If treated as one organisation, subtract 2 from the distinct-lab count.
@@ -76,6 +76,38 @@ _Snapshot as of 2026-09-16_
 ## Change history
 
 <!-- CHANGES:START -->
+
+### 2026-09-17 — Update (+19 / -0 / ~0)
+
+Source export: `Pruned AI Models_Table.xlsx` · models 403 → 422 · labs 15 → 15 · columns 20 → 20
+
+**Models added (19):**
+- Gemini 3.8 Flash — Google DeepMind
+- Gemini 3.8 Flash Cyber — Google DeepMind
+- DeepSeek-V4.1-Flash — DeepSeek-AI
+- Grok 4.6 — xAI
+- Gemini 3.7 Flash — Google DeepMind
+- Qwen3.8-2.4T-A95B — Alibaba
+- Qwen3.8-27B — Alibaba
+- Qwen3.8-Flash-Next — Alibaba
+- GLM-5.3 — Z.AI
+- GLM-5.3-Flash — Z.AI
+- Claude Opus 5 — Anthropic
+- GPT-5.6 Terra — OpenAI
+- GPT-5.6 Luna — OpenAI
+- GPT-Live-1 — OpenAI
+- Gemini 3.6 Flash — Google DeepMind
+- Gemini 3.5 Flash-Lite — Google DeepMind
+- Gemini 3.5 Flash Cyber — Google DeepMind
+- DeepSeek-V4-Flash — DeepSeek-AI
+- Robostral Navigate — Mistral
+
+**Models removed (0):**
+- none
+
+**Models changed (0):**
+- none
+
 
 ### 2026-09-16 — Update (+0 / -0 / ~2)
 
