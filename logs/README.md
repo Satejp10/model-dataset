@@ -20,23 +20,29 @@ the [LifeArchitect.ai Models Table](https://lifearchitect.ai/models-table/)).
 
 ## Weekly check
 
-A claude.ai routine runs the `weekly-model-update` skill
-(`.claude/skills/weekly-model-update/SKILL.md`) once a week: it looks for models the
-tracked labs have released, adds the ones a primary source confirms, runs the routine
-below, and opens **one PR** for review. Nothing lands without that review, and the skill
-only ever adds rows — fixes to existing rows go in the PR body as suggestions.
+The `weekly-model-update` skill (`.claude/skills/weekly-model-update/SKILL.md`) looks for
+models the tracked labs have released, adds the ones a primary source confirms, runs the
+routine below, and opens **one PR** for review. Nothing lands without that review, and the
+skill only ever adds rows — fixes to existing rows go in the PR body as suggestions.
+
+**It runs only when you ask it to.** Nothing is scheduled, so no check happens on its own:
+
+- press **Run now** on the claude.ai routine, or
+- ask for it in a session — "run the weekly model update", or anything that names it.
+
+Weekly is the intended rhythm, not an enforced one.
 
 - **`last_check.txt`** holds the date of the last check, one `YYYY-MM-DD` line, written at
-  the end of each run. The next run searches from 14 days before it, so a missed week
-  still gets covered. It doesn't exist until the first run, which starts at 2026-07-01.
+  the end of each run. The next run searches from 14 days before it, so a longer gap
+  between runs still gets covered. It doesn't exist until the first run, which starts at
+  2026-07-01.
 - **`skip.txt`** stops a model from being proposed again: one model name per line, `#` for
   comments. Add anything that keeps surfacing as a candidate but doesn't belong here.
-- **`archive/`** holds a frozen copy of the dataset from before the automation started, so
+- **`archive/`** holds a frozen copy of the dataset from before the first automated run, so
   there is always a known-good state to fall back to. See
   [`archive/README.md`](../archive/README.md).
 
-Running it by hand is the same thing — ask for the weekly model update — and the sections
-below are what it does, step by step.
+The sections below are what a run does, step by step.
 
 ## Why it's semi-manual
 
