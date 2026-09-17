@@ -15,6 +15,28 @@ the [LifeArchitect.ai Models Table](https://lifearchitect.ai/models-table/)).
   Committed so the next diff has something to compare against.
 - `build_constellation.py` — builds the browser-ready constellation data in `dist/` from
   that snapshot (step 5 below).
+- `skip.txt` — models the weekly check below should never propose. `last_check.txt` sits
+  beside it once that check has run for the first time.
+
+## Weekly check
+
+A claude.ai routine runs the `weekly-model-update` skill
+(`.claude/skills/weekly-model-update/SKILL.md`) once a week: it looks for models the
+tracked labs have released, adds the ones a primary source confirms, runs the routine
+below, and opens **one PR** for review. Nothing lands without that review, and the skill
+only ever adds rows — fixes to existing rows go in the PR body as suggestions.
+
+- **`last_check.txt`** holds the date of the last check, one `YYYY-MM-DD` line, written at
+  the end of each run. The next run searches from 14 days before it, so a missed week
+  still gets covered. It doesn't exist until the first run, which starts at 2026-07-01.
+- **`skip.txt`** stops a model from being proposed again: one model name per line, `#` for
+  comments. Add anything that keeps surfacing as a candidate but doesn't belong here.
+- **`archive/`** holds a frozen copy of the dataset from before the automation started, so
+  there is always a known-good state to fall back to. See
+  [`archive/README.md`](../archive/README.md).
+
+Running it by hand is the same thing — ask for the weekly model update — and the sections
+below are what it does, step by step.
 
 ## Why it's semi-manual
 

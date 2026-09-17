@@ -1,0 +1,6 @@
+# One model name per line. A model listed here is never proposed by the weekly check —
+# use it for anything that keeps coming back as a candidate but does not belong in the
+# dataset, so nobody has to re-decide it every week.
+#
+# Lines starting with # are comments, and blank lines are ignored. Write the name as
+# the lab writes it. A short reason on the line above is worth the two seconds.
