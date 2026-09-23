@@ -17,8 +17,8 @@ the [LifeArchitect.ai Models Table](https://lifearchitect.ai/models-table/)).
   that snapshot (step 5 below).
 - `skip.txt` — models the weekly check below should never propose. `last_check.txt` sits
   beside it once that check has run for the first time.
-- `pinned.md` — models someone asked for that aren't in the sheet yet, such as image
-  models, with the tag they get when they go in.
+- `pinned.md` — models someone asked for that aren't in the sheet yet, with the tag they
+  get when they go in.
 
 ## Weekly check
 
@@ -238,8 +238,8 @@ A few conventions worth knowing:
 | `Reasoning` | Reasoning or thinking model |
 | `Diffusion` | Diffusion language model |
 | `SOTA` | The lab's own results show it leading major benchmarks at launch |
-| `Image` | Image generation or editing model. None yet, see [`pinned.md`](pinned.md) |
-| `Video` | Also generates video. Goes alongside `Image` |
+| `Image` | Image generation or editing model. Carries no other tag except `Video` |
+| `Video` | Also generates video. Goes alongside `Image`; video-only models aren't in the sheet |
 
 ## Editing by hand
 

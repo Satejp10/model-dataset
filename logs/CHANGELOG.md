@@ -18,8 +18,8 @@ _Snapshot as of 2026-09-23_
 | File | `Pruned AI Models_Table.xlsx` |
 | Sheet | `Models` |
 | Header row | Row 2 |
-| Number of models | **447** |
-| Number of distinct labs (as-written) | **16** |
+| Number of models | **488** |
+| Number of distinct labs (as-written) | **19** |
 | Columns (named) | **20** |
 
 ### Columns
@@ -51,22 +51,25 @@ _Snapshot as of 2026-09-23_
 
 | Lab | Models |
 |---|---:|
-| Google DeepMind | 65 |
-| Microsoft | 47 |
+| Google DeepMind | 70 |
+| Microsoft | 54 |
+| OpenAI | 51 |
+| Alibaba | 46 |
 | NVIDIA | 45 |
-| OpenAI | 45 |
-| Alibaba | 42 |
-| Meta AI | 40 |
+| Meta AI | 41 |
 | Google | 31 |
 | Mistral | 27 |
-| DeepSeek-AI | 23 |
+| DeepSeek-AI | 24 |
 | Anthropic | 22 |
-| xAI | 14 |
+| xAI | 16 |
 | Moonshot AI | 12 |
 | Xiaomi | 11 |
-| Z.AI | 9 |
+| Z.AI | 11 |
 | DeepMind | 7 |
 | MiniMax | 7 |
+| ByteDance | 5 |
+| Black Forest Labs | 4 |
+| Midjourney | 4 |
 
 > Note: `Google DeepMind`, `Google`, and `DeepMind` are recorded as separate
 > labels. If treated as one organisation, subtract 2 from the distinct-lab count.
@@ -77,6 +80,60 @@ _Snapshot as of 2026-09-23_
 ## Change history
 
 <!-- CHANGES:START -->
+
+### 2026-09-23 — Update (+41 / -0 / ~0)
+
+Source export: `Pruned AI Models_Table.xlsx` · models 447 → 488 · labs 16 → 19 · columns 20 → 20
+
+**Models added (41):**
+- GPT-Image-2.5 Sunburst — OpenAI
+- GPT-Image-2.5 Flare — OpenAI
+- MAI-Image-2.6-Flash — Microsoft
+- Qwen-Image-2.1 — Alibaba
+- Grok Imagine Image 2.0 — xAI
+- MAI-Image-2.6 — Microsoft
+- Seedream 5.0 Pro — ByteDance
+- MAI-Image-2.5-Pro — Microsoft
+- Muse Image — Meta AI
+- Qwen-Image-3.0 — Alibaba
+- FLUX 3 — Black Forest Labs
+- Midjourney V8.2 — Midjourney
+- Gemini 3.1 Flash-Lite Image (Nano Banana 2 Lite) — Google DeepMind
+- MAI-Image-2.5 — Microsoft
+- MAI-Image-2.5-Flash — Microsoft
+- GPT-Image-2 — OpenAI
+- Midjourney V8.1 — Midjourney
+- MAI-Image-2 — Microsoft
+- Midjourney V8 — Midjourney
+- Gemini 3.1 Flash Image (Nano Banana 2) — Google DeepMind
+- Seedream 5.0 Lite — ByteDance
+- Qwen-Image-2.0 — Alibaba
+- Grok Imagine — xAI
+- GLM-Image — Z.AI
+- FLUX.2 [klein] — Black Forest Labs
+- GPT-Image-1.5 — OpenAI
+- Seedream 4.5 — ByteDance
+- Gemini 3 Pro Image (Nano Banana Pro) — Google DeepMind
+- FLUX.2 — Black Forest Labs
+- GPT-Image-1 Mini — OpenAI
+- MAI-Image-1 — Microsoft
+- Seedream 4.0 — ByteDance
+- Gemini 2.5 Flash Image (Nano Banana) — Google DeepMind
+- Qwen-Image — Alibaba
+- Imagen 4 — Google DeepMind
+- FLUX.1 Kontext — Black Forest Labs
+- GPT-Image-1 — OpenAI
+- Seedream 3.0 — ByteDance
+- Midjourney V7 — Midjourney
+- CogView4-6B — Z.AI
+- Janus-Pro-7B — DeepSeek-AI
+
+**Models removed (0):**
+- none
+
+**Models changed (0):**
+- none
+
 
 ### 2026-09-23 — Update (+25 / -0 / ~0)
 
