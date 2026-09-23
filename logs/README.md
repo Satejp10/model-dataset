@@ -17,6 +17,8 @@ the [LifeArchitect.ai Models Table](https://lifearchitect.ai/models-table/)).
   that snapshot (step 5 below).
 - `skip.txt` — models the weekly check below should never propose. `last_check.txt` sits
   beside it once that check has run for the first time.
+- `pinned.md` — models someone asked for that aren't in the sheet yet, such as image
+  models, with the tag they get when they go in.
 
 ## Weekly check
 
@@ -226,6 +228,18 @@ A few conventions worth knowing:
 - `Announced` stores day 1 for every model; the sheet's two day-30/31 rows predate us and
   are left alone.
 - Requires `openpyxl` (`pip install openpyxl`). No network access is used.
+
+## Tags
+
+`Tags` is a free-text, comma-separated column; the build splits it into a `tags` list.
+
+| Tag | Meaning |
+|---|---|
+| `Reasoning` | Reasoning or thinking model |
+| `Diffusion` | Diffusion language model |
+| `SOTA` | The lab's own results show it leading major benchmarks at launch |
+| `Image` | Image generation or editing model. None yet, see [`pinned.md`](pinned.md) |
+| `Video` | Also generates video. Goes alongside `Image` |
 
 ## Editing by hand
 

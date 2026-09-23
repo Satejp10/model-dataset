@@ -25,6 +25,9 @@ New models go in through the `weekly-model-update` skill
 with `logs/add_model.py`, logs the change, rebuilds `dist/` and opens one PR. Don't type
 rows into the workbook by hand and don't hand-edit the generated files in `dist/`.
 
+Before a run, read [`logs/pinned.md`](logs/pinned.md). It lists models someone asked for
+that aren't in the sheet yet (image models, for now) and the tag they get when they go in.
+
 ## The scripts in `logs/` need openpyxl
 
 `pip install openpyxl` — `add_model.py` and `diff_dataset.py` both exit immediately

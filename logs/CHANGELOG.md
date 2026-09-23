@@ -11,15 +11,15 @@ edit entries by hand — just keep the two marker comments in place.
 ## Current dataset specs
 
 <!-- SPECS:START -->
-_Snapshot as of 2026-09-17_
+_Snapshot as of 2026-09-23_
 
 | Property | Value |
 |---|---|
 | File | `Pruned AI Models_Table.xlsx` |
 | Sheet | `Models` |
 | Header row | Row 2 |
-| Number of models | **422** |
-| Number of distinct labs (as-written) | **15** |
+| Number of models | **447** |
+| Number of distinct labs (as-written) | **16** |
 | Columns (named) | **20** |
 
 ### Columns
@@ -51,18 +51,19 @@ _Snapshot as of 2026-09-17_
 
 | Lab | Models |
 |---|---:|
-| Google DeepMind | 63 |
-| Microsoft | 45 |
-| OpenAI | 43 |
+| Google DeepMind | 65 |
+| Microsoft | 47 |
+| NVIDIA | 45 |
+| OpenAI | 45 |
 | Alibaba | 42 |
-| NVIDIA | 42 |
-| Meta AI | 37 |
+| Meta AI | 40 |
 | Google | 31 |
 | Mistral | 27 |
 | DeepSeek-AI | 23 |
-| Anthropic | 21 |
-| xAI | 13 |
+| Anthropic | 22 |
+| xAI | 14 |
 | Moonshot AI | 12 |
+| Xiaomi | 11 |
 | Z.AI | 9 |
 | DeepMind | 7 |
 | MiniMax | 7 |
@@ -76,6 +77,44 @@ _Snapshot as of 2026-09-17_
 ## Change history
 
 <!-- CHANGES:START -->
+
+### 2026-09-23 — Update (+25 / -0 / ~0)
+
+Source export: `Pruned AI Models_Table.xlsx` · models 422 → 447 · labs 15 → 16 · columns 20 → 20
+
+**Models added (25):**
+- Claude Opus 5.5 — Anthropic
+- GPT-6 Sol — OpenAI
+- GPT-6 Luna — OpenAI
+- Gemini 3.8 Live — Google DeepMind
+- Gemini 3.8 Live Extended Thinking — Google DeepMind
+- Grok 4.7 — xAI
+- Muse Spark 1.3 — Meta AI
+- Nemotron-3-Labs-Ultra-Math — NVIDIA
+- MiMo-V2.6-Pro — Xiaomi
+- MiMo-V2.6-Flash — Xiaomi
+- Muse Spark 1.2 — Meta AI
+- Muse Glimmer — Meta AI
+- MAI-Cyber-1-Flash — Microsoft
+- NVIDIA-NemotronLabs-VoiceChat-11B — NVIDIA
+- Nemotron 3.5 Lightning — NVIDIA
+- Mage-VL — Microsoft
+- MiMo-V2.5 — Xiaomi
+- MiMo-V2.5-Pro — Xiaomi
+- MiMo-V2-Pro — Xiaomi
+- MiMo-V2-Omni — Xiaomi
+- MiMo-V2-Flash — Xiaomi
+- MiMo-Embodied-7B — Xiaomi
+- MiMo-Audio-7B — Xiaomi
+- MiMo-VL-7B — Xiaomi
+- MiMo-7B — Xiaomi
+
+**Models removed (0):**
+- none
+
+**Models changed (0):**
+- none
+
 
 ### 2026-09-17 — Update (+19 / -0 / ~0)
 
