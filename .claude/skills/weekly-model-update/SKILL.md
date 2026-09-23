@@ -26,7 +26,9 @@ Add models the tracked labs released recently, using only facts a primary source
 ## 2. Find candidates
 
 Tracked labs, with the Lab label to use on new rows:
-OpenAI · Anthropic · Google DeepMind (all Google and DeepMind models) · Meta AI · Microsoft · NVIDIA · Alibaba (includes Qwen) · DeepSeek-AI · Mistral · Moonshot AI · xAI · MiniMax · Z.AI
+OpenAI · Anthropic · Google DeepMind (all Google and DeepMind models) · Meta AI · Microsoft · NVIDIA · Alibaba (includes Qwen) · DeepSeek-AI · Mistral · Moonshot AI · xAI · MiniMax · Z.AI · Xiaomi (includes MiMo)
+
+Image models only: ByteDance (Seedream) · Black Forest Labs (FLUX) · Midjourney
 
 For each lab, find models announced inside the window. Check:
 - the lab's news or blog page, model docs, and system or model cards
@@ -39,7 +41,7 @@ For each lab, find models announced inside the window. Check:
 Add the kind of entries the sheet already has: new foundation models, new major or point versions, notable open-weight releases, and research models with a paper.
 
 Skip:
-- image, video, and music generators
+- video-only and music generators. Image generators go in, including ones that also make video.
 - dated snapshots of an existing model, unless the lab calls it a new model
 - quantized, distilled, or community variants
 - a model that shares weights with an existing row under another access tier (Claude Mythos 5.1 = Claude Fable 5.1)
@@ -62,7 +64,7 @@ Write a JSON spec to /tmp/new.json for logs/add_model.py (`python logs/add_model
 - ALScore: only if params and tokens are both stated. Formula: √(params × tokens) ÷ 300, two decimals.
 - MMLU, MMLU-Pro, GPQA, HLE: only scores the lab reports, 0 to 100. Name the variant in Notes (e.g. "GPQA = Diamond", "HLE without tools"). Leave blank if only third parties report a score.
 - Training dataset: match that lab's recent rows ("synthetic, web-scale" for most recent frontier models) unless the source says otherwise.
-- Tags: "Reasoning" for reasoning or thinking models, "Diffusion" for diffusion LMs, "SOTA" only if the lab's own results show it leading major benchmarks at launch.
+- Tags: "Reasoning" for reasoning or thinking models, "Diffusion" for diffusion LMs, "SOTA" only if the lab's own results show it leading major benchmarks at launch. Image generators get "Image", plus "Video" if they also make video, and no other tags.
 - Notes: one or two sentences on what it is, then "Added by weekly check YYYY-MM-DD. Sources: URL, URL."
 - Leave Disclosure score and Count (rough) blank. Those are LifeArchitect's own calls.
 

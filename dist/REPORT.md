@@ -2,8 +2,8 @@
 
 - Snapshot: `Pruned AI Models_Table.xlsx` captured `2026-09-23`
 - Data: Dr Alan D. Thompson, LifeArchitect.ai Models Table (Sep/2026). Carried into `DATASET.source`.
-- Records in snapshot: **447**
-- Parsed: **447** · skipped: **0** · filtered out: **0** · emitted: **447**
+- Records in snapshot: **488**
+- Parsed: **488** · skipped: **0** · filtered out: **0** · emitted: **488**
 
 - Year range: **2017–2026**
 - Month range: **2017-06 → 2026-09**
@@ -12,40 +12,43 @@
 
 | Field | Records with a value |
 |---|---:|
-| link (Paper / Repo) | 447 / 447 |
-| playground | 351 / 447 |
-| alscore | 408 / 447 |
-| paramsB | 418 / 447 |
-| paramsActiveB | 175 / 447 |
-| tokensB | 409 / 447 |
-| mmlu | 137 / 447 |
-| mmluPro | 105 / 447 |
-| gpqa | 157 / 447 |
-| hle | 83 / 447 |
-| desc (Notes) | 447 / 447 |
-| arch | 416 / 447 |
-| disclosure | 401 / 447 |
-| family | 21 / 447 |
-| tags (non-empty) | 208 / 447 |
+| link (Paper / Repo) | 488 / 488 |
+| playground | 389 / 488 |
+| alscore | 408 / 488 |
+| paramsB | 422 / 488 |
+| paramsActiveB | 175 / 488 |
+| tokensB | 409 / 488 |
+| mmlu | 137 / 488 |
+| mmluPro | 105 / 488 |
+| gpqa | 157 / 488 |
+| hle | 83 / 488 |
+| desc (Notes) | 488 / 488 |
+| arch | 416 / 488 |
+| disclosure | 401 / 488 |
+| family | 25 / 488 |
+| tags (non-empty) | 249 / 488 |
 
 ## Records per lab
 
 | Lab | Records |
 |---|---:|
-| Google DeepMind | 103 |
-| Microsoft | 47 |
+| Google DeepMind | 108 |
+| Microsoft | 54 |
+| OpenAI | 51 |
+| Alibaba | 46 |
 | NVIDIA | 45 |
-| OpenAI | 45 |
-| Alibaba | 42 |
-| Meta AI | 40 |
+| Meta AI | 41 |
 | Mistral | 27 |
-| DeepSeek-AI | 23 |
+| DeepSeek-AI | 24 |
 | Anthropic | 22 |
-| xAI | 14 |
+| xAI | 16 |
 | Moonshot AI | 12 |
 | Xiaomi | 11 |
-| Z.AI | 9 |
+| Z.AI | 11 |
 | MiniMax | 7 |
+| ByteDance | 5 |
+| Black Forest Labs | 4 |
+| Midjourney | 4 |
 
 ## Access
 
@@ -53,9 +56,9 @@ From the source `Public?` column, on LifeArchitect's legend: 🟢 publicly acces
 
 | `access` | Legend | `released` | Records |
 |---|---|---|---:|
-| `public` | 🟢 | `true` | 368 |
+| `public` | 🟢 | `true` | 408 |
 | `demo` | 🟡 | `false` | 8 |
-| `unreleased` | 🔴 | `false` | 71 |
+| `unreleased` | 🔴 | `false` | 72 |
 
 ## Horizon
 
@@ -68,14 +71,16 @@ Records dated after the horizon: **0**.
 
 ## Families formed
 
-10 family/families, from the fixed variant-token allowlist only (no fuzzy matching, no edit distance, no inference from Notes). The consumer draws a family only when its members also share a month.
+12 family/families, from the fixed variant-token allowlist only (no fuzzy matching, no edit distance, no inference from Notes). The consumer draws a family only when its members also share a month.
 
 | Lab | Family | Members |
 |---|---|---|
+| ByteDance | Seedream 5.0 | Seedream 5.0 Lite, Seedream 5.0 Pro |
 | DeepSeek-AI | DeepSeek-V4 | DeepSeek-V4-Flash, DeepSeek-V4-Pro |
 | Google DeepMind | Gemini 1.5 | Gemini 1.5 Flash, Gemini 1.5 Pro |
 | Google DeepMind | Gemini 3 | Gemini 3 Flash, Gemini 3 Pro |
 | Google DeepMind | Gemini 3.5 | Gemini 3.5 Flash, Gemini 3.5 Flash-Lite |
+| Microsoft | MAI-Image-2.5 | MAI-Image-2.5-Flash, MAI-Image-2.5-Pro |
 | Microsoft | phi-3 | phi-3-medium, phi-3-mini |
 | Mistral | Mistral | Mistral Large, Mistral Small, Mistral-medium |
 | NVIDIA | Cosmos 3 | Cosmos 3 Edge, Cosmos 3 Super |
