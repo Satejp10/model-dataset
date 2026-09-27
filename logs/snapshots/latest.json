@@ -8057,11 +8057,11 @@
       "GPQA": "53.6",
       "HLE": "3.1",
       "Training dataset": "web-scale",
-      "Public?": "🔴",
+      "Public?": "🟢",
       "Disclosure score": "D",
       "Paper / Repo": "https://openai.com/index/gpt-4o-system-card/",
       "Tags": "SOTA",
-      "Notes": "gpt-4o-2024-05-13 no longer easily available, so hidden in the Model Table rankings. Omnimodel. ‘[GPT-4o is] likely an early checkpoint of GPT-5’. https://twitter.com/drjimfan/status/1790089671365767313 ELO: https://twitter.com/LiamFedus/status/1790064963966370209 Demo: https://youtu.be/DQacCB9tDaw",
+      "Notes": "gpt-4o-2024-05-13 no longer easily available, so hidden in the Model Table rankings. Omnimodel. ‘[GPT-4o is] likely an early checkpoint of GPT-5’. https://twitter.com/drjimfan/status/1790089671365767313 ELO: https://twitter.com/LiamFedus/status/1790064963966370209 Demo: https://youtu.be/DQacCB9tDaw Public? changed from 🔴 to 🟢 on 2026-09-27: OpenAI's launch post says GPT-4o's text and image capabilities started rolling out in ChatGPT, including the free tier, and in the API on 2024-05-13. Source: https://openai.com/index/hello-gpt-4o/.",
       "Count (rough)": "357",
       "Playground": "https://chatgpt.com/"
     },
