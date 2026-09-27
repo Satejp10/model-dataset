@@ -1,9 +1,9 @@
 # Constellation build report
 
-- Snapshot: `Pruned AI Models_Table.xlsx` captured `2026-09-23`
+- Snapshot: `Pruned AI Models_Table.xlsx` captured `2026-09-27`
 - Data: Dr Alan D. Thompson, LifeArchitect.ai Models Table (Sep/2026). Carried into `DATASET.source`.
-- Records in snapshot: **488**
-- Parsed: **488** · skipped: **0** · filtered out: **0** · emitted: **488**
+- Records in snapshot: **489**
+- Parsed: **489** · skipped: **0** · filtered out: **0** · emitted: **489**
 
 - Year range: **2017–2026**
 - Month range: **2017-06 → 2026-09**
@@ -12,21 +12,21 @@
 
 | Field | Records with a value |
 |---|---:|
-| link (Paper / Repo) | 488 / 488 |
-| playground | 389 / 488 |
-| alscore | 408 / 488 |
-| paramsB | 422 / 488 |
-| paramsActiveB | 175 / 488 |
-| tokensB | 409 / 488 |
-| mmlu | 137 / 488 |
-| mmluPro | 105 / 488 |
-| gpqa | 157 / 488 |
-| hle | 83 / 488 |
-| desc (Notes) | 488 / 488 |
-| arch | 416 / 488 |
-| disclosure | 401 / 488 |
-| family | 25 / 488 |
-| tags (non-empty) | 249 / 488 |
+| link (Paper / Repo) | 489 / 489 |
+| playground | 390 / 489 |
+| alscore | 408 / 489 |
+| paramsB | 422 / 489 |
+| paramsActiveB | 175 / 489 |
+| tokensB | 409 / 489 |
+| mmlu | 137 / 489 |
+| mmluPro | 105 / 489 |
+| gpqa | 158 / 489 |
+| hle | 84 / 489 |
+| desc (Notes) | 489 / 489 |
+| arch | 417 / 489 |
+| disclosure | 401 / 489 |
+| family | 25 / 489 |
+| tags (non-empty) | 250 / 489 |
 
 ## Records per lab
 
@@ -35,7 +35,7 @@
 | Google DeepMind | 108 |
 | Microsoft | 54 |
 | OpenAI | 51 |
-| Alibaba | 46 |
+| Alibaba | 47 |
 | NVIDIA | 45 |
 | Meta AI | 41 |
 | Mistral | 27 |
@@ -56,7 +56,7 @@ From the source `Public?` column, on LifeArchitect's legend: 🟢 publicly acces
 
 | `access` | Legend | `released` | Records |
 |---|---|---|---:|
-| `public` | 🟢 | `true` | 408 |
+| `public` | 🟢 | `true` | 409 |
 | `demo` | 🟡 | `false` | 8 |
 | `unreleased` | 🔴 | `false` | 72 |
 
