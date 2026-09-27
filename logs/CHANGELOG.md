@@ -81,6 +81,22 @@ _Snapshot as of 2026-09-27_
 
 <!-- CHANGES:START -->
 
+### 2026-09-27 — Update (+0 / -0 / ~1)
+
+Source export: `Pruned AI Models_Table.xlsx` · models 489 → 489 · labs 19 → 19 · columns 20 → 20
+
+**Models added (0):**
+- none
+
+**Models removed (0):**
+- none
+
+**Models changed (1):**
+- GPT-4o — OpenAI
+  - Public?: `🔴` → `🟢`
+  - Notes: `gpt-4o-2024-05-13 no longer easily available, so hidden in the Model Table rankings. Omnimodel. ‘[GPT-4o is] likely an early checkpoint of GPT-5’. https://twitter.com/drjimfan/status/1790089671365767313 ELO: https://twitter.com/LiamFedus/status/1790064963966370209 Demo: https://youtu.be/DQacCB9tDaw` → `gpt-4o-2024-05-13 no longer easily available, so hidden in the Model Table rankings. Omnimodel. ‘[GPT-4o is] likely an early checkpoint of GPT-5’. https://twitter.com/drjimfan/status/1790089671365767313 ELO: https://twitter.com/LiamFedus/status/1790064963966370209 Demo: https://youtu.be/DQacCB9tDaw Public? changed from 🔴 to 🟢 on 2026-09-27: OpenAI's launch post says GPT-4o's text and image capabilities started rolling out in ChatGPT, including the free tier, and in the API on 2024-05-13. Source: https://openai.com/index/hello-gpt-4o/.`
+
+
 ### 2026-09-27 — Update (+1 / -0 / ~0)
 
 Source export: `Pruned AI Models_Table.xlsx` · models 488 → 489 · labs 19 → 19 · columns 20 → 20

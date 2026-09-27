@@ -4348,7 +4348,7 @@
       "trainingSet": "web-scale"
     },
     {
-      "access": "unreleased",
+      "access": "public",
       "alscore": 6.67,
       "arch": "MoE",
       "date": "2024-05",
@@ -4368,7 +4368,7 @@
       "paramsActiveB": 10.0,
       "paramsB": 200.0,
       "playground": "https://chatgpt.com/",
-      "released": false,
+      "released": true,
       "score": null,
       "scoreSrc": null,
       "tags": [
