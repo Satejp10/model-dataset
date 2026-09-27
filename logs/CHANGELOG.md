@@ -11,14 +11,14 @@ edit entries by hand — just keep the two marker comments in place.
 ## Current dataset specs
 
 <!-- SPECS:START -->
-_Snapshot as of 2026-09-23_
+_Snapshot as of 2026-09-27_
 
 | Property | Value |
 |---|---|
 | File | `Pruned AI Models_Table.xlsx` |
 | Sheet | `Models` |
 | Header row | Row 2 |
-| Number of models | **488** |
+| Number of models | **489** |
 | Number of distinct labs (as-written) | **19** |
 | Columns (named) | **20** |
 
@@ -54,7 +54,7 @@ _Snapshot as of 2026-09-23_
 | Google DeepMind | 70 |
 | Microsoft | 54 |
 | OpenAI | 51 |
-| Alibaba | 46 |
+| Alibaba | 47 |
 | NVIDIA | 45 |
 | Meta AI | 41 |
 | Google | 31 |
@@ -80,6 +80,20 @@ _Snapshot as of 2026-09-23_
 ## Change history
 
 <!-- CHANGES:START -->
+
+### 2026-09-27 — Update (+1 / -0 / ~0)
+
+Source export: `Pruned AI Models_Table.xlsx` · models 488 → 489 · labs 19 → 19 · columns 20 → 20
+
+**Models added (1):**
+- Qwen3.8-Omni-Flash — Alibaba
+
+**Models removed (0):**
+- none
+
+**Models changed (0):**
+- none
+
 
 ### 2026-09-23 — Update (+41 / -0 / ~0)
 

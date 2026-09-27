@@ -1,8 +1,8 @@
 {
-  "captured": "2026-09-23",
+  "captured": "2026-09-27",
   "source_file": "Pruned AI Models_Table.xlsx",
   "specs": {
-    "num_models": 488,
+    "num_models": 489,
     "num_labs": 19,
     "num_columns": 20,
     "columns": [
@@ -31,7 +31,7 @@
       "Google DeepMind": 70,
       "Microsoft": 54,
       "OpenAI": 51,
-      "Alibaba": 46,
+      "Alibaba": 47,
       "NVIDIA": 45,
       "Meta AI": 41,
       "Google": 31,
@@ -72,6 +72,7 @@
     "Playground"
   ],
   "order": [
+    "Qwen3.8-Omni-Flash",
     "GPT-Image-2.5 Sunburst",
     "GPT-Image-2.5 Flare",
     "MAI-Image-2.6-Flash",
@@ -562,6 +563,28 @@
     "Transformer (base)"
   ],
   "models": {
+    "Qwen3.8-Omni-Flash": {
+      "Model": "Qwen3.8-Omni-Flash",
+      "Lab": "Alibaba",
+      "Params (total, B)": "",
+      "Params (active, B)": "",
+      "Announced": "2026-09-01",
+      "Arch": "MoE",
+      "Tokens trained (B)": "",
+      "ALScore": "",
+      "MMLU": "",
+      "MMLU-Pro": "",
+      "GPQA": "91",
+      "HLE": "36.5",
+      "Training dataset": "synthetic, web-scale",
+      "Public?": "🟢",
+      "Disclosure score": "",
+      "Paper / Repo": "https://arxiv.org/abs/2609.25611",
+      "Tags": "Reasoning",
+      "Notes": "Qwen's native omni-modal MoE model built for agents: takes text, images, audio and video, with a 1M-token context, and its language backbone is initialized from Qwen3.8-Next. Available through the Alibaba Cloud Model Studio API. GPQA = Diamond; HLE is judged by GPT-4o, tool setting not stated. Parameter count not stated; the paper gives about 2.5T tokens for pretraining stage 2 only, so no total is filled. Added by weekly check 2026-09-27. Sources: https://arxiv.org/abs/2609.25611, https://qwen.ai/blog?id=qwen3.8-omni-flash, https://www.alibabacloud.com/help/en/model-studio/qwen3-8-omni-flash.",
+      "Count (rough)": "",
+      "Playground": "https://www.alibabacloud.com/help/en/model-studio/qwen3-8-omni-flash"
+    },
     "GPT-Image-2.5 Sunburst": {
       "Model": "GPT-Image-2.5 Sunburst",
       "Lab": "OpenAI",
