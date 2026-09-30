@@ -18,7 +18,7 @@ the [LifeArchitect.ai Models Table](https://lifearchitect.ai/models-table/)).
 - `skip.txt` — models the weekly check below should never propose. `last_check.txt` sits
   beside it once that check has run for the first time.
 - `pinned.md` — models someone asked for that aren't in the sheet yet, with the tag they
-  get when they go in.
+  get when they go in, plus suggested fixes to existing rows that haven't been applied.
 
 ## Weekly check
 

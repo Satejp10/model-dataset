@@ -1,7 +1,8 @@
 # Pinned for a later run
 
-Models someone asked for that are not in the sheet yet. Read this before a model-update
-run, and delete an entry once its row is in.
+Models someone asked for that are not in the sheet yet, and suggested fixes to existing
+rows that nobody has applied yet. Read this before a model-update run. Delete a model
+once its row is in, and a fix once it's applied or rejected.
 
 | Model | Lab | Released | Primary source | Pinned |
 |---|---|---|---|---|
@@ -10,6 +11,16 @@ run, and delete an entry once its row is in.
 **Gemini 4 Pro:** Google hasn't named a "Pro" model or opened any beta. The only sightings
 are anonymous test checkpoints that developers found. Add the row once Google announces
 it. Use 🟢 if anyone can use it, or 🔴 if access is limited to vetted testers.
+
+## Suggested fixes to existing rows
+
+Not applied. A weekly run only adds rows, so it copies these into its PR body instead.
+Apply one only when the user asks for it, then delete it here.
+
+| Model | Field | Now | Suggested | Source | Pinned |
+|---|---|---|---|---|---|
+| Claude Opus 5 | HLE | blank | 63.6 (with tools; 56.6 without goes in Notes, as on the other Anthropic rows) | Table 8.1.A of the [Claude Opus 5.5 system card](https://www.anthropic.com/claude-opus-5-5-system-card) | 2026-09-30 |
+| Chameleon | Tags | blank | `Image` (it generates images as well as text) | [arXiv 2405.09818](https://arxiv.org/abs/2405.09818) | 2026-09-30 |
 
 ## Image models
 
