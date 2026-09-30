@@ -18,10 +18,11 @@ Add models the tracked labs released recently, using only facts a primary source
 
 ## 1. Preflight
 
-- List open PRs: `gh api repos/Satejp10/model-dataset/pulls?state=open`. If any title starts with "Weekly model update", stop and report it. Do nothing else.
+- List open PRs: `gh api repos/Satejp10/model-dataset/pulls?state=open`, or the GitHub MCP `list_pull_requests` tool on Claude Code web, which has no `gh`. If any title starts with "Weekly model update", stop and report it. Do nothing else.
 - Install openpyxl if it's missing. Run `python logs/diff_dataset.py`. It must report no changes. If it doesn't, stop and report.
 - Set the window. If logs/last_check.txt exists, start 14 days before its date. If not, start at 2026-07-01 (first run: the sheet has nothing from late July or August). End today.
 - Read logs/skip.txt if it exists. Never add a model listed there.
+- Read logs/pinned.md. It lists models to add once they ship, and fixes to existing rows that are still open.
 
 ## 2. Find candidates
 
@@ -78,8 +79,21 @@ Write a JSON spec to /tmp/new.json for logs/add_model.py (`python logs/add_model
 ## 6. Open the PR
 
 - If nothing was added, don't commit or open a PR. Report "No new models from START to TODAY", plus anything you considered and skipped.
-- Otherwise commit on one claude/ branch and open a PR titled "Weekly model update YYYY-MM-DD (+N)". If `gh pr create` is blocked, use `gh api repos/Satejp10/model-dataset/pulls`. The PR body has:
+- Otherwise commit on one claude/ branch and open a PR titled "Weekly model update YYYY-MM-DD (+N)". If `gh pr create` is blocked, use `gh api repos/Satejp10/model-dataset/pulls`. On Claude Code web, use the GitHub MCP `create_pull_request` tool. The PR body has:
   - Added: a table of model, lab, month, Public?, and primary source
   - Left blank: which fields, per model
   - Considered, not added: each model and why
-  - Suggested fixes to existing rows: what, why, and a source. Don't apply them.
+  - Suggested fixes to existing rows: what, why, and a source. Don't apply them. Include the open ones from logs/pinned.md, and add any new ones to its fixes table in the same commit.
+
+## Source tips
+
+What worked, and what didn't, on earlier runs:
+
+- Brightdata: when a result is too big to show, the tool saves it to a file. Parse that file with Python's json module instead of fetching the page again.
+- Plain curl works for many pages: `curl -sL --compressed -A "Mozilla/5.0" URL`.
+- OpenAI API docs: add `.md` to a model page URL to get clean text, e.g. `https://developers.openai.com/api/docs/models/gpt-6.1-sol.md`.
+- Google: the Gemini API changelog (`https://ai.google.dev/gemini-api/docs/changelog`) works with curl. It gives preview and GA dates for each model.
+- Moonshot AI: platform.kimi.ai and moonshot.ai often return 521 errors or empty pages. The Kimi Code docs work with curl: `https://www.kimi.com/code/docs/en/kimi-code/whats-new.html` and `.../models.html`.
+- Anthropic system cards: the URL redirects to a PDF. Save it as `.pdf` and extract the text with PyMuPDF (`pip install pymupdf`, then `import fitz`). pypdf has failed here.
+- Third-party explainer blogs often get release status wrong (one called Kimi K3 "rumored" after it shipped). Confirm on the lab's own pages.
+- Recent Anthropic rows (Opus 4.8 on): HLE holds the with-tools score, and the without-tools score goes in Notes. Anthropic now reports Global MMLU (GMMLU), not MMLU, so MMLU holds the GMMLU score and Notes says so.

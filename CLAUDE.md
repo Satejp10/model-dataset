@@ -26,7 +26,8 @@ with `logs/add_model.py`, logs the change, rebuilds `dist/` and opens one PR. Do
 rows into the workbook by hand and don't hand-edit the generated files in `dist/`.
 
 Before a run, read [`logs/pinned.md`](logs/pinned.md). It lists models someone asked for
-that aren't in the sheet yet, and the tag they get when they go in.
+that aren't in the sheet yet, the tag they get when they go in, and fixes to existing rows
+that are waiting for the user's go-ahead.
 
 ## The scripts in `logs/` need openpyxl
 
