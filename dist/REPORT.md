@@ -1,9 +1,9 @@
 # Constellation build report
 
-- Snapshot: `Pruned AI Models_Table.xlsx` captured `2026-09-27`
+- Snapshot: `Pruned AI Models_Table.xlsx` captured `2026-09-29`
 - Data: Dr Alan D. Thompson, LifeArchitect.ai Models Table (Sep/2026). Carried into `DATASET.source`.
-- Records in snapshot: **489**
-- Parsed: **489** · skipped: **0** · filtered out: **0** · emitted: **489**
+- Records in snapshot: **492**
+- Parsed: **492** · skipped: **0** · filtered out: **0** · emitted: **492**
 
 - Year range: **2017–2026**
 - Month range: **2017-06 → 2026-09**
@@ -12,21 +12,21 @@
 
 | Field | Records with a value |
 |---|---:|
-| link (Paper / Repo) | 489 / 489 |
-| playground | 390 / 489 |
-| alscore | 408 / 489 |
-| paramsB | 422 / 489 |
-| paramsActiveB | 175 / 489 |
-| tokensB | 409 / 489 |
-| mmlu | 137 / 489 |
-| mmluPro | 105 / 489 |
-| gpqa | 158 / 489 |
-| hle | 84 / 489 |
-| desc (Notes) | 489 / 489 |
-| arch | 417 / 489 |
-| disclosure | 401 / 489 |
-| family | 25 / 489 |
-| tags (non-empty) | 250 / 489 |
+| link (Paper / Repo) | 492 / 492 |
+| playground | 393 / 492 |
+| alscore | 408 / 492 |
+| paramsB | 422 / 492 |
+| paramsActiveB | 175 / 492 |
+| tokensB | 409 / 492 |
+| mmlu | 138 / 492 |
+| mmluPro | 105 / 492 |
+| gpqa | 158 / 492 |
+| hle | 85 / 492 |
+| desc (Notes) | 492 / 492 |
+| arch | 417 / 492 |
+| disclosure | 401 / 492 |
+| family | 25 / 492 |
+| tags (non-empty) | 253 / 492 |
 
 ## Records per lab
 
@@ -34,15 +34,15 @@
 |---|---:|
 | Google DeepMind | 108 |
 | Microsoft | 54 |
-| OpenAI | 51 |
+| OpenAI | 52 |
 | Alibaba | 47 |
 | NVIDIA | 45 |
 | Meta AI | 41 |
 | Mistral | 27 |
 | DeepSeek-AI | 24 |
-| Anthropic | 22 |
+| Anthropic | 23 |
 | xAI | 16 |
-| Moonshot AI | 12 |
+| Moonshot AI | 13 |
 | Xiaomi | 11 |
 | Z.AI | 11 |
 | MiniMax | 7 |
@@ -56,7 +56,7 @@ From the source `Public?` column, on LifeArchitect's legend: 🟢 publicly acces
 
 | `access` | Legend | `released` | Records |
 |---|---|---|---:|
-| `public` | 🟢 | `true` | 410 |
+| `public` | 🟢 | `true` | 413 |
 | `demo` | 🟡 | `false` | 8 |
 | `unreleased` | 🔴 | `false` | 71 |
 

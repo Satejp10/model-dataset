@@ -11,14 +11,14 @@ edit entries by hand — just keep the two marker comments in place.
 ## Current dataset specs
 
 <!-- SPECS:START -->
-_Snapshot as of 2026-09-27_
+_Snapshot as of 2026-09-29_
 
 | Property | Value |
 |---|---|
 | File | `Pruned AI Models_Table.xlsx` |
 | Sheet | `Models` |
 | Header row | Row 2 |
-| Number of models | **489** |
+| Number of models | **492** |
 | Number of distinct labs (as-written) | **19** |
 | Columns (named) | **20** |
 
@@ -53,16 +53,16 @@ _Snapshot as of 2026-09-27_
 |---|---:|
 | Google DeepMind | 70 |
 | Microsoft | 54 |
-| OpenAI | 51 |
+| OpenAI | 52 |
 | Alibaba | 47 |
 | NVIDIA | 45 |
 | Meta AI | 41 |
 | Google | 31 |
 | Mistral | 27 |
 | DeepSeek-AI | 24 |
-| Anthropic | 22 |
+| Anthropic | 23 |
 | xAI | 16 |
-| Moonshot AI | 12 |
+| Moonshot AI | 13 |
 | Xiaomi | 11 |
 | Z.AI | 11 |
 | DeepMind | 7 |
@@ -80,6 +80,22 @@ _Snapshot as of 2026-09-27_
 ## Change history
 
 <!-- CHANGES:START -->
+
+### 2026-09-29 — Update (+3 / -0 / ~0)
+
+Source export: `Pruned AI Models_Table.xlsx` · models 489 → 492 · labs 19 → 19 · columns 20 → 20
+
+**Models added (3):**
+- Claude Sonnet 5.5 — Anthropic
+- GPT-6.1 Sol — OpenAI
+- Kimi K2.8 Preview — Moonshot AI
+
+**Models removed (0):**
+- none
+
+**Models changed (0):**
+- none
+
 
 ### 2026-09-27 — Update (+0 / -0 / ~1)
 
